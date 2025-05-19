@@ -8,7 +8,6 @@ import entidades.Tarefa;
      * 
      *          MENU PRINCIPAL
      * 
-     * 
      */
 
 public class Programa {
