@@ -22,10 +22,11 @@ public class TarefaFaculdade extends Tarefa implements Prioritizavel {
     @Override
     public String toString() {
         String saida = """
-                ID: %d      Titulo: %s      Prioridade: %s
-                Descricao: %s
-                Status: %s              Prazo: %s
-                """.formatted(id, titulo, prioridade, descricao, status, prazo);
+                Tarefa Faculdade
+                        ID: %d      Titulo: %s      Prioridade: %s
+                        Descricao: %s
+                        Status: %s              Prazo: %s
+                        """.formatted(id, titulo, prioridade, descricao, status, prazo);
         return saida;
     }
 

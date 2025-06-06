@@ -14,10 +14,11 @@ public class TarefaPessoal extends Tarefa {
     @Override
     public String toString() {
         return """
-                ID: %d      Titulo: %s
-                Descricao: %s
-                Status: %s              Prazo: %s
-                """.formatted(id, titulo, descricao, status, prazo == null ? "Sem prazo definido" : prazo);
+                Tarefa Pessoal
+                    ID: %d      Titulo: %s
+                    Descricao: %s
+                    Status: %s              Prazo: %s
+                    """.formatted(id, titulo, descricao, status, prazo == null ? "Sem prazo definido" : prazo);
 
     }
 
