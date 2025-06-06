@@ -194,14 +194,8 @@ public class Programa {
                     /* BUSCAR POR DATA */case 3:
                         System.out.println("BUSCAR POR DATA\n");
                         System.out.println("""
-                                1 - DIA     2-  
+                                1 - DIA     2-
                                 """);
-
-
-
-
-
-
 
                         break;
                     /* BUSCAR POR PRIORIDADE */case 4:
