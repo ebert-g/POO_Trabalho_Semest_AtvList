@@ -16,7 +16,7 @@ public abstract class Tarefa {
         this.titulo = titulo;
         this.descricao = descricao;
         this.prazo = prazo;
-        this.status = status;
+        this.status = Status.PENDENTE;
     }
 
     public int getId() {
