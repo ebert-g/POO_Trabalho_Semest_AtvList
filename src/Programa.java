@@ -16,7 +16,7 @@ public class Programa {
         Scanner sc = new Scanner(System.in);
         List<Tarefa> tarefas = new ArrayList<>();
         InicialTarefas.GerarTarefas(tarefas);
-        int opn1, opn2, opn3, opn4, opn5, opn6, escolherTipoBusca, esc;
+        int opn1, opn2, opn3, opn4, opn5, opn6;
         for (Tarefa tarefa : tarefas) {
             System.out.println(tarefa);
         }
@@ -86,7 +86,6 @@ public class Programa {
                     }
                     int novoId = tarefas.size(); // o ID será o próximo da lista
 
-                    
                     switch (opn4) {
                         case 1:
                             Tarefa nova = new TarefaPessoal(novoId, titulo, descricao, prazo, status);
@@ -95,24 +94,25 @@ public class Programa {
                             System.out.println(nova);
                             break;
                         case 2:
-                            Tarefa novaFaculdade = new TarefaFaculdade(novoId, titulo, descricao, prazo, status, prioridade);
+                            Tarefa novaFaculdade = new TarefaFaculdade(novoId, titulo, descricao, prazo, status,
+                                    prioridade);
                             tarefas.add(novaFaculdade);
                             System.out.println("Tarefa Faculdade adicionada com sucesso!");
                             System.out.println(novaFaculdade);
                             break;
                         case 3:
-                            Tarefa novaTrabalho = new TarefaTrabalho(novoId, titulo, descricao, prazo, status, prioridade);
+                            Tarefa novaTrabalho = new TarefaTrabalho(novoId, titulo, descricao, prazo, status,
+                                    prioridade);
                             tarefas.add(novaTrabalho);
                             System.out.println("Tarefa Trabalho adicionada com sucesso!");
                             System.out.println(novaTrabalho);
                             break;
                         default:
-                        System.out.println("Tipo inválido!");
+                            System.out.println("Tipo inválido!");
                             break;
                     }
 
-
-                // Editar
+                    // Editar
                 } else if (opn2 == 2) {
                     System.out.println("Selecione sua tarefa:");
                     // ############################################## - Logica das tarefas
