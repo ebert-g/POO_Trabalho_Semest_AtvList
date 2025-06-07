@@ -98,9 +98,10 @@ public class Programa {
                     System.out.println("Exclua a Tarefa");
                 }
                 break;
-            case 2:
+            case 2: {
                 String escText;
                 int esc, ano = 0, mes = 0, dia = 0, escolherTipoBusca;
+
                 System.out.println("BUSCAR TAREFAS\n");
                 System.out.println("TAREFAS PENDENTES\n");
                 for (Tarefa tarefa : tarefas) {
@@ -130,6 +131,7 @@ public class Programa {
                                     if (tarefa.getStatus() == Status.CONCLUIDO) {
                                         System.out.println(tarefa);
                                     }
+
                                 }
 
                                 break;
@@ -138,6 +140,7 @@ public class Programa {
                                 for (Tarefa tarefa : tarefas) {
                                     if (tarefa.getStatus() == Status.EM_ANDAMENTO) {
                                         System.out.println(tarefa);
+
                                     }
                                 }
 
@@ -302,7 +305,7 @@ public class Programa {
                 }
 
                 break;
-
+            }
             default:
                 break;
         }
