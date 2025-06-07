@@ -176,6 +176,8 @@ public class Programa {
                 }
                 break;
             case 2:
+                String escText;
+                int esc, ano = 0, mes = 0, dia = 0, escolherTipoBusca;
                 // System.out.println("BUSCAR TAREFAS\n");
                 // System.out.println("TAREFAS PENDENTES\n");
                 for (Tarefa tarefa : tarefas) {
@@ -284,12 +286,64 @@ public class Programa {
                         break;
                     /* BUSCAR POR DATA */
                     case 3:
-                        System.out.println("Buscar por Data: \n");
-                        System.out.println("""
-                                1 - DIA     2-
-                                """);
+                        System.out.println("Buscar por Data:");
+                        System.out.println("1 - Dia");
+                        System.out.println("2 - Mes");
+                        System.out.println("3 - Ano");
+                        esc = sc.nextInt();
+                        sc.nextLine();
+                        switch (esc) {
+                            /* BUSCAR POR DIA */case 1:
+                                System.out.println("Buscar por Dia");
+                                System.out.println("Digite o dia (dd/MM/aaaa)");
+                                escText = sc.next().trim();
+                                dia = Integer.parseInt(escText.substring(0, 2));
+                                mes = Integer.parseInt(escText.substring(3, 5));
+                                ano = Integer.parseInt(escText.substring(6, 10));
+                                for (Tarefa tarefa : tarefas) {
+                                    if ((tarefa.getPrazo().getDayOfMonth() == dia)
+                                            && (tarefa.getPrazo().getMonthValue() == mes)
+                                            && (tarefa.getPrazo().getYear() == ano)) {
+                                        System.out.println(tarefa);
+
+                                    }
+                                }
+                                break;
+                            /* BUSCAR POR MES */case 2:
+                                System.out.println("Buscar por Mes");
+                                System.out.println("Digite o mes (MM/aaaa)");
+                                escText = sc.next();
+                                escText.trim();
+                                mes = Integer.parseInt(escText.substring(0, 2));
+                                ano = Integer.parseInt(escText.substring(3, 7));
+                                for (Tarefa tarefa : tarefas) {
+                                    if ((tarefa.getPrazo().getMonthValue() == mes)
+                                            && (tarefa.getPrazo().getYear() == ano)) {
+                                        System.out.println(tarefa);
+
+                                    }
+                                }
+
+                                break;
+                            /* BUSCAR POR ANO */case 3:
+                                System.out.println("Buscar por Ano");
+                                System.out.println("Digite o ano (aaaa)");
+                                esc = sc.nextInt();
+                                sc.nextLine();
+                                for (Tarefa tarefa : tarefas) {
+                                    if ((tarefa.getPrazo() != null) && (tarefa.getPrazo().getYear() == esc)) {
+                                        System.out.println(tarefa);
+                                    }
+                                }
+
+                                break;
+
+                            default:
+                                break;
+                        }
 
                         break;
+
                     /* BUSCAR POR PRIORIDADE */
                     case 4:
                         System.out.println("Buscar por Prioridade");
