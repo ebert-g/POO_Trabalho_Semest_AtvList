@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -15,10 +16,10 @@ public class Programa {
         Scanner sc = new Scanner(System.in);
         List<Tarefa> tarefas = new ArrayList<>();
         InicialTarefas.GerarTarefas(tarefas);
-        int opn1, opn2, opn3, opn4, opn5, opn6, escolherTipoBusca, esc;
-        for (Tarefa tarefa : tarefas) {
-            System.out.println(tarefa);
-        }
+        int opn1, opn2, opn3, opn4, opn5, opn6;
+        // for (Tarefa tarefa : tarefas) {
+        // System.out.println(tarefa);
+        // }
         System.out.println("Escolha uma opção:");
         System.out.println("1 - Tarefa");
         System.out.println("2 - Buscar tarefa");
@@ -98,6 +99,8 @@ public class Programa {
                 }
                 break;
             case 2:
+                String escText;
+                int esc, ano = 0, mes = 0, dia = 0, escolherTipoBusca;
                 System.out.println("BUSCAR TAREFAS\n");
                 System.out.println("TAREFAS PENDENTES\n");
                 for (Tarefa tarefa : tarefas) {
@@ -194,8 +197,59 @@ public class Programa {
                     /* BUSCAR POR DATA */case 3:
                         System.out.println("BUSCAR POR DATA\n");
                         System.out.println("""
-                                1 - DIA     2-
+                                1 - DIA     2- MES      3- ANO
                                 """);
+                        esc = sc.nextInt();
+                        sc.nextLine();
+                        switch (esc) {
+                            /* BUSCAR POR DIA */case 1:
+                                System.out.println("BUSCAR POR DIA\n");
+                                System.out.println("DIGITE O DIA (dd/MM/aaaa)");
+                                escText = sc.next().trim();
+                                dia = Integer.parseInt(escText.substring(0, 2));
+                                mes = Integer.parseInt(escText.substring(3, 5));
+                                ano = Integer.parseInt(escText.substring(6, 10));
+                                for (Tarefa tarefa : tarefas) {
+                                    if ((tarefa.getPrazo().getDayOfMonth() == dia)
+                                            && (tarefa.getPrazo().getMonthValue() == mes)
+                                            && (tarefa.getPrazo().getYear() == ano)) {
+                                        System.out.println(tarefa);
+
+                                    }
+                                }
+                                break;
+                            /* BUSCAR POR MES */case 2:
+                                System.out.println("BUSCAR POR MES");
+                                System.out.println("DIGITE O MES (MM/aaaa)");
+                                escText = sc.next();
+                                escText.trim();
+                                mes = Integer.parseInt(escText.substring(0, 2));
+                                ano = Integer.parseInt(escText.substring(3, 7));
+                                for (Tarefa tarefa : tarefas) {
+                                    if ((tarefa.getPrazo().getMonthValue() == mes)
+                                            && (tarefa.getPrazo().getYear() == ano)) {
+                                        System.out.println(tarefa);
+
+                                    }
+                                }
+
+                                break;
+                            /* BUSCAR POR ANO */case 3:
+                                System.out.println("BUSCAR POR ANO\n");
+                                System.out.println("DIGITE O ANO (aaaa)");
+                                esc = sc.nextInt();
+                                sc.nextLine();
+                                for (Tarefa tarefa : tarefas) {
+                                    if ((tarefa.getPrazo() != null) && (tarefa.getPrazo().getYear() == esc)) {
+                                        System.out.println(tarefa);
+                                    }
+                                }
+
+                                break;
+
+                            default:
+                                break;
+                        }
 
                         break;
                     /* BUSCAR POR PRIORIDADE */case 4:

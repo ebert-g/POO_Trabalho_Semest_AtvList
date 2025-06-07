@@ -51,6 +51,14 @@ public abstract class Tarefa {
         this.status = status;
     }
 
+    public LocalDate getPrazo() {
+        return prazo;
+    }
+
+    public void setPrazo(LocalDate prazo) {
+        this.prazo = prazo;
+    }
+
     public boolean isConcluida() {
         return this.status == Status.CONCLUIDO;
     }
