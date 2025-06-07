@@ -31,45 +31,100 @@ public class Programa {
                 System.out.println("2 - Editar Tarefa");
                 System.out.println("3 - Excluir Tarefa");
                 opn2 = sc.nextInt();
+                // Adicionar
                 if (opn2 == 1) {
                     System.out.println("Selecione o nível de prioridade:");
                     System.out.println("1 - Alto");
                     System.out.println("2 - Medio");
                     System.out.println("3 - Baixo");
                     opn3 = sc.nextInt();
+                    Prioridade prioridade;
                     switch (opn3) {
                         case 1:
-                            System.out.println("Classifique sua tarefa:");
-                            System.out.println("1- Tarefa Pessoal");
-                            System.out.println("2- Tarefa de Facudade");
-                            System.out.println("3- Tarefa de trabalho");
-                            opn4 = sc.nextInt();
+                            prioridade = Prioridade.ALTA;
                             break;
                         case 2:
-                            System.out.println("Classifique sua tarefa:");
-                            System.out.println("1- Tarefa Pessoal");
-                            System.out.println("2- Tarefa de Facudade");
-                            System.out.println("3- Tarefa de trabalho");
-                            opn4 = sc.nextInt();
+                            prioridade = Prioridade.MEDIA;
                             break;
                         case 3:
-                            System.out.println("Classifique sua tarefa:");
-                            System.out.println("1- Tarefa Pessoal");
-                            System.out.println("2- Tarefa de Facudade");
-                            System.out.println("3- Tarefa de trabalho");
-                            opn4 = sc.nextInt();
+                            prioridade = Prioridade.BAIXA;
                             break;
                         default:
+                            System.out.println("Opção inválida. Usando prioridade MEDIA por padrão.");
+                            prioridade = Prioridade.MEDIA;
+                    }
+
+                    System.out.println("Classifique sua tarefa:");
+                    System.out.println("1 - Tarefa Pessoal");
+                    System.out.println("2 - Tarefa de Faculdade");
+                    System.out.println("3 - Tarefa de Trabalho");
+                    opn4 = sc.nextInt();
+                    sc.nextLine(); // limpar o buffer
+
+                    System.out.print("Digite o título da tarefa: ");
+                    String titulo = sc.nextLine();
+
+                    System.out.print("Digite a descrição da tarefa: ");
+                    String descricao = sc.nextLine();
+
+                    System.out.print("Digite o prazo (AAAA-MM-DD): ");
+                    String dataStr = sc.nextLine();
+                    LocalDate prazo = LocalDate.parse(dataStr); // você pode colocar try/catch depois
+
+                    Status status = Status.PENDENTE; // padrão
+                    System.out.println("Deseja mudar o status? (1 - Sim | 2 - Não)");
+                    int mudarStatus = sc.nextInt();
+                    sc.nextLine();
+                    if (mudarStatus == 1) {
+                        System.out.println("Escolha o status: 1 - CONCLUIDO | 2 - EM ANDAMENTO | 3 - PENDENTE");
+                        int statusOp = sc.nextInt();
+                        switch (statusOp) {
+                            case 1 -> status = Status.CONCLUIDO;
+                            case 2 -> status = Status.EM_ANDAMENTO;
+                            case 3 -> status = Status.PENDENTE;
+                        }
+                    }
+                    int novoId = tarefas.size(); // o ID será o próximo da lista
+
+                    switch (opn4) {
+                        case 1:
+                            Tarefa nova = new TarefaPessoal(novoId, titulo, descricao, prazo, status);
+                            tarefas.add(nova);
+                            System.out.println("Tarefa Pessoal adicionada com sucesso!");
+                            System.out.println(nova);
+                            break;
+                        case 2:
+                            Tarefa novaFaculdade = new TarefaFaculdade(novoId, titulo, descricao, prazo, status,
+                                    prioridade);
+                            tarefas.add(novaFaculdade);
+                            System.out.println("Tarefa Faculdade adicionada com sucesso!");
+                            System.out.println(novaFaculdade);
+                            break;
+                        case 3:
+                            Tarefa novaTrabalho = new TarefaTrabalho(novoId, titulo, descricao, prazo, status,
+                                    prioridade);
+                            tarefas.add(novaTrabalho);
+                            System.out.println("Tarefa Trabalho adicionada com sucesso!");
+                            System.out.println(novaTrabalho);
+                            break;
+                        default:
+                            System.out.println("Tipo inválido!");
                             break;
                     }
+
+                    // Editar
                 } else if (opn2 == 2) {
                     System.out.println("Selecione sua tarefa:");
                     // ############################################## - Logica das tarefas
-                    for (int i = 0; i < 7; i++) {
-                        System.out.println(i + " - Tarefa " + i);
+                    for (int i = 0; i < tarefas.size(); i++) {
+                        System.out.println(i + " - " + tarefas.get(i).getTitulo());
                     }
                     // ##############################################
                     opn5 = sc.nextInt();
+
+                    Tarefa tarefaSelecionada = tarefas.get(opn5);
+                    sc.nextLine(); // limpar o buffer
+
                     System.out.println("Selecione o item que você deseja editar de sua tarefa numero: " + opn5);
                     System.out.println("1 - Titulo");
                     System.out.println("2 - Descrição");
@@ -78,19 +133,41 @@ public class Programa {
                     opn6 = sc.nextInt();
                     switch (opn6) {
                         case 1:
-
+                            System.out.print("Digite o novo título: ");
+                            String novoTitulo = sc.next();
+                            tarefaSelecionada.setTitulo(novoTitulo);
+                            System.out.println("Título atualizado!");
                             break;
                         case 2:
+                            System.out.print("Digite a nova descrição: ");
+                            String novaDescricao = sc.next();
+                            tarefaSelecionada.setDescricao(novaDescricao);
+                            System.out.println("Descrição atualizada!");
 
                             break;
                         case 3:
-
+                            System.out.println("Em desenvolvimento");
                             break;
                         case 4:
+                            System.out.println("Escolha o novo status:");
+                            System.out.println("1 - CONCLUIDO");
+                            System.out.println("2 - EM_ANDAMENTO");
+                            System.out.println("3 - PENDENTE");
+                            int novoStatus = sc.nextInt();
+                            switch (novoStatus) {
+                                case 1 -> tarefaSelecionada.setStatus(Status.CONCLUIDO);
+                                case 2 -> tarefaSelecionada.setStatus(Status.EM_ANDAMENTO);
+                                case 3 -> tarefaSelecionada.setStatus(Status.PENDENTE);
+                                default -> System.out.println("Opção inválida! Status não alterado.");
+                            }
+                            System.out.println("Status atualizado!");
+                            sc.nextLine(); // limpar buffer após nextInt
 
                             break;
 
                         default:
+                            System.out.println("Opção inválida.");
+
                             break;
                     }
 
@@ -110,23 +187,29 @@ public class Programa {
                     }
                 }
 
-                System.out.println(
-                        """
-                                1- BUSCAR POR STATUS 2- BUCAR POR TIPO  3-BUSCAR POR DATA   4- BUSCAR POR PRIORIDADE 5-MOSTRAR TODAS
-                                                """);
+                System.out.println("Menu:");
+                System.out.println("1 - Buscar por Status:");
+                System.out.println("2 - Buscar por tipo:");
+                System.out.println("3 - Buscar por Data:");
+                System.out.println("4 - Buscar por Prioridade:");
+                System.out.println("5 - Mostrar todas:");
                 escolherTipoBusca = sc.nextInt();
                 sc.nextLine();
+
                 switch (escolherTipoBusca) {
-                    /* BUSCAR POR STATUS */case 1:
-                        System.out.println("BUSCAR POR STATUS\n");
-                        System.out.println("""
-                                1- CONCLUIDO 2- EM ANDAMENTO 3- PENDENTE
-                                """);
+                    /* BUSCAR POR STATUS */
+                    case 1:
+                        System.out.println("Buscar por Status:\n");
+                        System.out.println("1 - Concluido");
+                        System.out.println("2 - Em andamento");
+                        System.out.println("3 - Pendente");
                         esc = sc.nextInt();
                         sc.nextLine();
+
                         switch (esc) {
-                            /* CONCLUIDO */case 1:
-                                System.out.println("TAREFAS CONCLUIDAS");
+                            /* CONCLUIDO */
+                            case 1:
+                                System.out.println("Tarefas Concluidas:");
                                 for (Tarefa tarefa : tarefas) {
                                     if (tarefa.getStatus() == Status.CONCLUIDO) {
                                         System.out.println(tarefa);
@@ -135,8 +218,9 @@ public class Programa {
                                 }
 
                                 break;
-                            /* EM ANDAMENTO */case 2:
-                                System.out.println("TAREFAS EM ANDAMENTO");
+                            /* EM ANDAMENTO */
+                            case 2:
+                                System.out.println("Tarefas em Andamento:");
                                 for (Tarefa tarefa : tarefas) {
                                     if (tarefa.getStatus() == Status.EM_ANDAMENTO) {
                                         System.out.println(tarefa);
@@ -146,8 +230,9 @@ public class Programa {
 
                                 break;
 
-                            /* PENDENTE */case 3:
-                                System.out.println("TAREFAS PENDENTES");
+                            /* PENDENTE */
+                            case 3:
+                                System.out.println("Tarefas Pendente:");
                                 for (Tarefa tarefa : tarefas) {
                                     if (tarefa.getStatus() == Status.PENDENTE) {
                                         System.out.println(tarefa);
@@ -160,32 +245,37 @@ public class Programa {
                         }
 
                         break;
-                    /* BUCAR POR TIPO */case 2:
-                        System.out.println("BUSCAR POR TIPO");
-                        System.out.println("""
-                                1- TAREFA PESSOAL   2- TAREFA TRABALHO 3- TAREFA FACULADE
-                                """);
+                    /* BUCAR POR TIPO */
+                    case 2:
+                        System.out.println("Buscar por Tipo:");
+                        System.out.println("1 - Tarefa Pessoal");
+                        System.out.println("2 - Tarefa Trabalho");
+                        System.out.println("3 - Tarefa Faculdade");
                         esc = sc.nextInt();
                         sc.nextLine();
+
                         switch (esc) {
-                            /* TAREFA PESSOAL */case 1:
-                                System.out.println("TAREFA PESSOAL");
+                            /* TAREFA PESSOAL */
+                            case 1:
+                                System.out.println("Tarefa Pessoal: ");
                                 for (Tarefa tarefa : tarefas) {
                                     if (tarefa instanceof TarefaPessoal) {
                                         System.out.println(tarefa);
                                     }
                                 }
                                 break;
-                            /* TAREFA TRABALHO */case 2:
-                                System.out.println("TAREFA TRABALHO");
+                            /* TAREFA TRABALHO */
+                            case 2:
+                                System.out.println("Tarefa Trabalho");
                                 for (Tarefa tarefa : tarefas) {
                                     if (tarefa instanceof TarefaTrabalho) {
                                         System.out.println(tarefa);
                                     }
                                 }
                                 break;
-                            /* TAREFA FACULDADE */case 3:
-                                System.out.println("TAREFA FACULDADE");
+                            /* TAREFA FACULDADE */
+                            case 3:
+                                System.out.println("Tarefa Faculdade");
                                 for (Tarefa tarefa : tarefas) {
                                     if (tarefa instanceof TarefaFaculdade) {
                                         System.out.println(tarefa);
@@ -197,8 +287,9 @@ public class Programa {
                                 break;
                         }
                         break;
-                    /* BUSCAR POR DATA */case 3:
-                        System.out.println("BUSCAR POR DATA\n");
+                    /* BUSCAR POR DATA */
+                    case 3:
+                        System.out.println("Buscar por Data: \n");
                         System.out.println("""
                                 1 - DIA     2- MES      3- ANO
                                 """);
@@ -255,24 +346,28 @@ public class Programa {
                         }
 
                         break;
-                    /* BUSCAR POR PRIORIDADE */case 4:
-                        System.out.println("BUSCAR POR PRIORIDADE");
-                        System.out.println("""
-                                1-ALTA  2-MEDIA  3- BAIXA
-                                """);
+                    /* BUSCAR POR PRIORIDADE */
+                    case 4:
+                        System.out.println("Buscar por Prioridade");
+                        System.out.println("1 - Alta");
+                        System.out.println("2 - Media");
+                        System.out.println("3 - Baixa");
                         esc = sc.nextInt();
                         sc.nextLine();
+
                         switch (esc) {
-                            /* ALTA */case 1:
-                                System.out.println("BUSCAR PRIORIDADE ALTA");
+                            /* ALTA */
+                            case 1:
+                                System.out.println("Prioridade Alta: ");
                                 for (Tarefa tarefa : tarefas) {
                                     if (tarefa instanceof Prioritizavel p && p.getPrioridade() == Prioridade.ALTA) {
                                         System.out.println(tarefa);
                                     }
                                 }
                                 break;
-                            /* MEDIA */case 2:
-                                System.out.println("BUSCAR PRIORIDADE MEDIA");
+                            /* MEDIA */
+                            case 2:
+                                System.out.println("Prioridade Media: ");
                                 for (Tarefa tarefa : tarefas) {
                                     if (tarefa instanceof Prioritizavel p && p.getPrioridade() == Prioridade.MEDIA) {
                                         System.out.println(tarefa);
@@ -281,8 +376,9 @@ public class Programa {
 
                                 break;
 
-                            /* BAIXA */case 3:
-                                System.out.println("BUSCAR PRIORIDADE BAIXA");
+                            /* BAIXA */
+                            case 3:
+                                System.out.println("Prioridade Baixa");
                                 for (Tarefa tarefa : tarefas) {
                                     if (tarefa instanceof Prioritizavel p && p.getPrioridade() == Prioridade.BAIXA) {
                                         System.out.println(tarefa);
@@ -294,7 +390,8 @@ public class Programa {
                                 break;
                         }
                         break;
-                    /* MOSTRAR TODAS */case 5:
+                    /* MOSTRAR TODAS */
+                    case 5:
                         for (Tarefa tarefa : tarefas) {
                             System.out.println(tarefa);
                         }
