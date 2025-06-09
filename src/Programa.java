@@ -197,7 +197,7 @@ public class Programa {
 
                     }
                     break;
-                case 2
+                case 2:
                     String escText;
                     int esc, ano = 0, mes = 0, dia = 0;
                     int escolherTipoBusca;
