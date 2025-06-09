@@ -19,6 +19,10 @@ public class TarefaFaculdade extends Tarefa implements Prioritizavel {
         return prioridade;
     }
 
+    public void setPrioridade(Prioridade prioridade) {
+        this.prioridade = prioridade;
+    }
+
     @Override
     public String toString() {
         String saida = """

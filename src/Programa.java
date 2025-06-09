@@ -75,7 +75,7 @@ public class Programa {
 
                         System.out.print("Digite o prazo (AAAA-MM-DD): ");
                         String dataStr = sc.nextLine();
-                        LocalDate prazo = LocalDate.parse(dataStr); // você pode colocar try/catch depois
+                        LocalDate prazo = LocalDate.parse(dataStr);
 
                         Status status = Status.PENDENTE; // padrão
                         System.out.println("Deseja mudar o status? (1 - Sim | 2 - Não)");
@@ -90,7 +90,7 @@ public class Programa {
                                 case 3 -> status = Status.PENDENTE;
                             }
                         }
-                        int novoId = tarefas.size(); // o ID será o próximo da lista
+                        int novoId = tarefas.size();
 
                         switch (opn4) {
                             case 1:
@@ -134,27 +134,24 @@ public class Programa {
                         System.out.println("Selecione o item que você deseja editar de sua tarefa numero: " + opn5);
                         System.out.println("1 - Titulo");
                         System.out.println("2 - Descrição");
-                        System.out.println("3 - Prazo");
-                        System.out.println("4 - Status");
+                        System.out.println("3 - Status");
                         int opn6 = sc.nextInt();
+                        sc.nextLine();
                         switch (opn6) {
                             case 1:
                                 System.out.print("Digite o novo título: ");
-                                String novoTitulo = sc.next();
+                                String novoTitulo = sc.nextLine();
                                 tarefaSelecionada.setTitulo(novoTitulo);
                                 System.out.println("Título atualizado!");
                                 break;
                             case 2:
                                 System.out.print("Digite a nova descrição: ");
-                                String novaDescricao = sc.next();
+                                String novaDescricao = sc.nextLine();
                                 tarefaSelecionada.setDescricao(novaDescricao);
                                 System.out.println("Descrição atualizada!");
 
                                 break;
                             case 3:
-                                System.out.println("Em desenvolvimento");
-                                break;
-                            case 4:
                                 System.out.println("Escolha o novo status:");
                                 System.out.println("1 - CONCLUIDO");
                                 System.out.println("2 - EM_ANDAMENTO");
@@ -167,8 +164,7 @@ public class Programa {
                                     default -> System.out.println("Opção inválida! Status não alterado.");
                                 }
                                 System.out.println("Status atualizado!");
-                                sc.nextLine(); // limpar buffer após nextInt
-
+                                sc.nextLine();
                                 break;
 
                             default:
@@ -201,7 +197,7 @@ public class Programa {
 
                     }
                     break;
-                case 2:
+                case 2
                     String escText;
                     int esc, ano = 0, mes = 0, dia = 0;
                     int escolherTipoBusca;
@@ -368,7 +364,9 @@ public class Programa {
                                 default:
                                     break;
                             }
-                            /* BUSCAR POR PRIORIDADE */
+
+                            break;
+                        /* BUSCAR POR PRIORIDADE */
                         case 4:
                             System.out.println("Buscar por Prioridade");
                             System.out.println("1 - Alta");
