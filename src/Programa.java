@@ -431,5 +431,6 @@ public class Programa {
                     break;
             }
         }
+        sc.close();
     }
 }
